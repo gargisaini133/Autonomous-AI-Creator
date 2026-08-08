@@ -3,6 +3,7 @@ from pydantic import BaseModel
 import uuid
 
 from database import create_tables, get_connection
+from scheduler import start_agent_schedule
 
 
 app = FastAPI()
@@ -45,6 +46,13 @@ def initialize_agent(request: InitRequest):
     conn.commit()
     conn.close()
 
+    # Start the autonomous schedule
+    start_agent_schedule(
+        agent_id,
+        request.persona.name,
+        request.persona.domain
+    )
+
     return {
         "agentId": agent_id
     }
@@ -81,4 +89,4 @@ def get_feed(agentId: str):
 
     return {
         "posts": posts
-    } 
+    }

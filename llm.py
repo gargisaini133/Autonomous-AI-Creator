@@ -13,7 +13,7 @@ client = genai.Client(api_key=api_key)
 
 def ask_ai(prompt):
     response = client.models.generate_content(
-        model="gemini-3.5-flash",
+        model="gemini-3.5-flash-lite",
         contents=prompt
     )
 

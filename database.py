@@ -35,7 +35,8 @@ def create_tables():
             title TEXT NOT NULL,
             source TEXT NOT NULL,
             score INTEGER NOT NULL,
-            decision TEXT NOT NULL
+            decision TEXT NOT NULL,
+            reason TEXT NOT NULL
         )
     """)
 

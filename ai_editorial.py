@@ -1,9 +1,12 @@
 import json
 
 from llm import ask_ai
+from article_reader import read_article
 
 
 def judge_topic(title, source):
+    article_text = read_article(source)
+
     prompt = f"""
 You are Nexus, an autonomous AI and emerging technology analyst.
 
@@ -31,10 +34,14 @@ Reject:
 Publish only if the topic has meaningful relevance to AI, software, computing,
 security, robotics, machine learning, open source, or important developer technology.
 
-Evaluate this candidate:
+Candidate title:
+{title}
 
-Title: {title}
-Source: {source}
+Source:
+{source}
+
+Article content:
+{article_text}
 
 Give scores from 0 to 10 for:
 1. AI/technology relevance
@@ -44,12 +51,15 @@ Give scores from 0 to 10 for:
 
 If AI/technology relevance is below 6, you MUST reject it.
 
+Base your judgment only on the title and article content provided.
+Do not invent facts that are not present in the source.
+
 Return ONLY valid JSON like this:
 
 {{
     "decision": "PUBLISH",
     "score": 8,
-    "reason": "Brief explanation"
+    "reason": "Brief explanation based on the source"
 }}
 """
 

@@ -1,7 +1,7 @@
 import uuid
 
 from discovery import get_hacker_news_topics
-from editorial import decide_topic
+from ai_editorial import judge_topic
 from database import get_connection
 
 agent_id = "a2e9bd76-dd03-4912-bdfa-6a0d97a38c2d"
@@ -12,7 +12,10 @@ conn = get_connection()
 cursor = conn.cursor()
 
 for topic in topics:
-    result = decide_topic(topic["title"])
+    result = judge_topic(
+        topic["title"],
+        topic["url"]
+    )
 
     cursor.execute(
         """
@@ -22,9 +25,10 @@ for topic in topics:
             title,
             source,
             score,
-            decision
+            decision,
+            reason
         )
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         (
             str(uuid.uuid4()),
@@ -32,13 +36,19 @@ for topic in topics:
             topic["title"],
             topic["url"],
             result["score"],
-            result["decision"]
+            result["decision"],
+            result["reason"]
         )
     )
 
-    print(topic["title"], "->", result["decision"])
+    print()
+    print("TITLE:", topic["title"])
+    print("DECISION:", result["decision"])
+    print("SCORE:", result["score"])
+    print("REASON:", result["reason"])
 
 conn.commit()
 conn.close()
 
-print("Candidates saved!")
+print()
+print("AI editorial cycle complete!")

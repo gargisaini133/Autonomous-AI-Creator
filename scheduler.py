@@ -29,18 +29,25 @@ def resume_existing_agents():
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "SELECT agent_id, name, domain FROM agents"
-    )
+    cursor.execute("""
+        SELECT agent_id, name, domain
+        FROM agents
+        ORDER BY rowid DESC
+        LIMIT 1
+    """)
 
-    agents = cursor.fetchall()
+    agent = cursor.fetchone()
     conn.close()
 
-    for agent_id, name, domain in agents:
+    if agent:
+        agent_id, name, domain = agent
+
         start_agent_schedule(
             agent_id,
             name,
             domain
         )
 
-    print(f"Restored {len(agents)} agent schedule(s)")
+        print("Restored latest agent schedule")
+    else:
+        print("No existing agent to restore")

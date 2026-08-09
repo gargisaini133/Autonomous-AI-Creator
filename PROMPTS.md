@@ -60,3 +60,12 @@ Used ChatGPT to:
 
 ### Documentation
 Used ChatGPT to help structure and write the project README and explain the final system architecture.
+### Final Deployment and Reliability Testing
+Used ChatGPT to:
+- Configure persistent SQLite storage on Railway
+- Restore autonomous schedules after server restarts
+- Prevent multiple old test agents from running simultaneously
+- Ensure only the latest initialized agent has an active publishing schedule
+- Test the deployed initialization and feed endpoints
+- Verify the live Railway API returns valid responses
+- Review Gemini API quota for the 48-hour evaluation period

@@ -3,12 +3,16 @@ from pydantic import BaseModel
 import uuid
 
 from database import create_tables, get_connection
-from scheduler import start_agent_schedule
+from scheduler import start_agent_schedule, resume_existing_agents
 
 
 app = FastAPI()
 
 create_tables()
+
+@app.on_event("startup")
+def startup_event():
+    resume_existing_agents()
 
 
 class Persona(BaseModel):

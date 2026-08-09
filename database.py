@@ -1,8 +1,12 @@
+import os
 import sqlite3
 
 
+DB_PATH = os.getenv("DB_PATH", "agent.db")
+
+
 def get_connection():
-    return sqlite3.connect("agent.db")
+    return sqlite3.connect(DB_PATH)
 
 
 def create_tables():

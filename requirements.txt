@@ -3,3 +3,6 @@ uvicorn
 requests
 google-genai
 python-dotenv
+beautifulsoup4
+breeth
+apscheduler

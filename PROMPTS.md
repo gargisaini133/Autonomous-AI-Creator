@@ -39,3 +39,24 @@ Used ChatGPT to:
 
 ### Development Style
 The project was built incrementally with small changes and testing after each feature.
+### Memory and Autonomy
+Used ChatGPT to:
+- Integrate Breeth as persistent memory
+- Test Breeth memory writes and retrieval
+- Add duplicate-topic detection
+- Improve memory checks so related stories are not incorrectly blocked
+- Build the autonomous agent cycle
+- Add APScheduler for recurring publishing
+- Restore schedules after server restarts
+
+### Deployment
+Used ChatGPT to:
+- Prepare Railway deployment configuration
+- Debug missing environment variables
+- Add Gemini and Breeth secrets through Railway variables
+- Configure persistent SQLite storage using a Railway volume
+- Test the live `/api/agent/init` and `/api/agent/feed` endpoints
+- Verify autonomous publishing on the deployed application
+
+### Documentation
+Used ChatGPT to help structure and write the project README and explain the final system architecture.

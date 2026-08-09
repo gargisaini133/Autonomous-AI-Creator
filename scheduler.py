@@ -8,6 +8,7 @@ scheduler = BackgroundScheduler()
 
 
 def start_agent_schedule(agent_id, name, domain):
+    scheduler.remove_all_jobs()
     job_id = f"agent-{agent_id}"
 
     scheduler.add_job(
